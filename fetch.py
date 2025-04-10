@@ -1,4 +1,3 @@
-# fetch.py
 import yfinance as yf
 
 def fetch_stock_data(stock_id, period):

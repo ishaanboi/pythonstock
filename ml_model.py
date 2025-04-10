@@ -1,4 +1,3 @@
-# ml_model.py
 import yfinance as yf
 import numpy as np
 import pandas as pd
@@ -19,7 +18,10 @@ def create_labeled_dataset(stock_id):
     df.columns = ['_'.join([str(c) for c in col if c]).strip() for col in df.columns]
 
     # Get close column dynamically
-    close_col = [col for col in df.columns if 'Close' in col and stock_id in col][0]
+    close_col = [col for col in df.columns if 'Close' in col and stock_id in col]
+    if not close_col:
+        close_col = [col for col in df.columns if 'Close' in col]
+    close_col = close_col[0]
 
     # Target creation
     df['Future_Close'] = df[close_col].shift(-10)

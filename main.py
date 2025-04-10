@@ -1,4 +1,3 @@
-# main.py
 from fetch import fetch_stock_data
 from indicators import calculate_indicators
 from ml_model import train_model, ml_predict
@@ -6,9 +5,15 @@ import os
 import joblib
 from pathlib import Path
 
+# 🔁 Helper to normalize user input like '3' → '3y'
+def normalize_period(period):
+    if period.isdigit():
+        return f"{period}y"
+    return period
+
 def evaluate():
     stock_id = input("Enter stock ID (e.g., RELIANCE): ").upper()
-    period = input("Enter period (e.g., 1y, 5y): ")
+    period = normalize_period(input("Enter period (e.g., 1y, 5y or just 3): "))
 
     model_path = f"{stock_id}_model.pkl"
 
